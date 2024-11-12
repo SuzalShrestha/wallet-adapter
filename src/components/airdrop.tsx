@@ -16,6 +16,9 @@ function AirDrop() {
         }
         return 0;
     };
+    const updateBalance = async () => {
+        getBalance().then((balance) => setBalance(balance));
+    };
     const sendAirDrop = async () => {
         try {
             if (wallet.connected && wallet.publicKey) {
@@ -29,40 +32,44 @@ function AirDrop() {
                     ...latestBlockHash,
                 });
                 toast.success('Airdrop sent');
-                getBalance().then((balance) => setBalance(balance));
+                updateBalance();
             }
         } catch {
             toast.error('Error sending airdrop');
         }
     };
     useEffect(() => {
-        getBalance().then((balance) => setBalance(balance));
+        updateBalance();
     }, [wallet.connected]);
     return (
-        <div className='my-5 flex flex-col gap-10'>
+        <div className='my-10 flex flex-col gap-10'>
             {wallet.connected && (
-                <div className='flex text-5xl font-semibold'>
+                <div className='flex text-5xl font-semibold my-5'>
                     <h1>{balance / LAMPORTS_PER_SOL} SOL </h1>
                 </div>
             )}
             {!wallet.connected && (
-                <div className='flex text-5xl font-semibold'>
+                <div className='flex text-5xl font-semibold my-5'>
                     <h1>Connect your wallet to get started.</h1>
                 </div>
             )}
             <div className='flex gap-10 items-center'>
                 <Input
-                    className='w-1/2'
+                    className='w-1/2 py-6 font-semibold text-2xl'
                     value={airDropAmount == 0 ? '' : airDropAmount}
+                    type='number'
                     onChange={(e) =>
                         setAirDropAmount(
-                            e.target.value == ''
-                                ? 0
-                                : parseFloat(e.target.value)
+                            e.target.value == '' ? 0 : parseInt(e.target.value)
                         )
                     }
                 />
-                <Button onClick={() => sendAirDrop()}>Send AIRDROP</Button>
+                <Button
+                    className='px-10 py-6 text-xl font-semibold bg-[#512DA8]'
+                    onClick={() => sendAirDrop()}
+                >
+                    Airdrop
+                </Button>
             </div>
         </div>
     );
