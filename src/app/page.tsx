@@ -12,6 +12,7 @@ import {
 } from '@solana/wallet-adapter-react-ui';
 import AirDrop from '@/components/airdrop';
 import SignMessage from '@/components/signmessage';
+import SendSol from '@/components/sendsol';
 function AdapterPage() {
     return (
         <ConnectionProvider endpoint={'https://api.devnet.solana.com'}>
@@ -22,7 +23,10 @@ function AdapterPage() {
                         <WalletDisconnectButton />
                     </div>
                     <AirDrop />
-                    <SignMessage />
+                    <div className='flex gap-20'>
+                        <SignMessage />
+                        <SendSol />
+                    </div>
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
