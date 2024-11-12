@@ -11,6 +11,7 @@ import {
     WalletMultiButton,
 } from '@solana/wallet-adapter-react-ui';
 import AirDrop from '@/components/airdrop';
+import SignMessage from '@/components/signmessage';
 function AdapterPage() {
     return (
         <ConnectionProvider endpoint={'https://api.devnet.solana.com'}>
@@ -21,6 +22,7 @@ function AdapterPage() {
                         <WalletDisconnectButton />
                     </div>
                     <AirDrop />
+                    <SignMessage />
                 </WalletModalProvider>
             </WalletProvider>
         </ConnectionProvider>
