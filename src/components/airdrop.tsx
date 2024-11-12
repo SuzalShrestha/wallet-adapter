@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { toast } from 'sonner';
 function AirDrop() {
     const [balance, setBalance] = useState(0);
     const [airDropAmount, setAirDropAmount] = useState(0);
@@ -16,16 +17,22 @@ function AirDrop() {
         return 0;
     };
     const sendAirDrop = async () => {
-        if (wallet.connected && wallet.publicKey) {
-            const signature = await connection.requestAirdrop(
-                wallet.publicKey,
-                airDropAmount * LAMPORTS_PER_SOL
-            );
-            const latestBlockHash = await connection.getLatestBlockhash();
-            await connection.confirmTransaction({
-                signature,
-                ...latestBlockHash,
-            });
+        try {
+            if (wallet.connected && wallet.publicKey) {
+                const signature = await connection.requestAirdrop(
+                    wallet.publicKey,
+                    airDropAmount * LAMPORTS_PER_SOL
+                );
+                const latestBlockHash = await connection.getLatestBlockhash();
+                await connection.confirmTransaction({
+                    signature,
+                    ...latestBlockHash,
+                });
+                toast.success('Airdrop sent');
+                getBalance().then((balance) => setBalance(balance));
+            }
+        } catch {
+            toast.error('Error sending airdrop');
         }
     };
     useEffect(() => {
