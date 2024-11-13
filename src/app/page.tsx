@@ -13,6 +13,7 @@ import {
 import AirDrop from '@/components/airdrop';
 import SignMessage from '@/components/signmessage';
 import SendSol from '@/components/sendsol';
+import TokenButton from '@/components/tokenbutton';
 function AdapterPage() {
     return (
         <ConnectionProvider endpoint={'https://api.devnet.solana.com'}>
@@ -26,6 +27,7 @@ function AdapterPage() {
                     <div className='flex gap-20'>
                         <SignMessage />
                         <SendSol />
+                        <TokenButton />
                     </div>
                 </WalletModalProvider>
             </WalletProvider>

@@ -32,8 +32,6 @@ export default function SendSol() {
                 return;
             }
             const transaction = new Transaction();
-            console.log(new PublicKey(publicKey));
-            console.log(new PublicKey(toPublicKey));
             transaction.add(
                 SystemProgram.transfer({
                     fromPubkey: new PublicKey(publicKey),
