@@ -10,7 +10,6 @@ function TokenButton() {
     const { publicKey } = useWallet();
     const { connection } = useConnection();
     const [accountData, setAccountData] = useState([]);
-
     const getToken = async () => {
         try {
             if (!publicKey) return;
@@ -43,11 +42,19 @@ function TokenButton() {
     };
     return (
         <div>
-            <Button onClick={() => getToken()}>Get Token</Button>
+            <Button
+                className='px-10 py-6 text-md font-semibold bg-[#512DA8]'
+                onClick={() => getToken()}
+            >
+                Get Token
+            </Button>
             <div>
                 {accountData &&
                     accountData.map((account) => (
-                        <div key={account.mint.toString()}>
+                        <div
+                            key={account.mint.toString()}
+                            className='font-bold text-xl p-2'
+                        >
                             {account.mint.toString()} - {account.amount}
                         </div>
                     ))}
